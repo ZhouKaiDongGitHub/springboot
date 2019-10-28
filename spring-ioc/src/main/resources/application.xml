@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default="byType">
+    <bean id="dao1" class="com.luban.dao.UserDaoImpl1"></bean>
+    <bean id="dao2" class="com.luban.dao.UserDaoImpl2"></bean>
+
+
+
+    <bean id="service1" class="com.luban.service.UserServiceImpl1">
+        <property name="userDao" ref="dao1"></property>
+    </bean>
+    <!--<bean id="service2" class="com.luban.service.UserServiceImpl2">
+        <property name="userDao" ref="dao1"></property>
+    </bean>-->
+
+    <!--<bean id="test" class="com.luban.dao.TestDaoImpl"></bean>-->
+</beans>

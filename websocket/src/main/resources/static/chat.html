@@ -1,0 +1,144 @@
+<!DOCTYPE html>   
+<html>   
+<head>   
+    <meta charset="UTF-8">   
+    <title>HTML5模拟微信聊天界面</title> 
+	<style>
+		#container{
+			    border-radius: 10px;
+				width: 450px;
+				height: 700px;
+				background: #f3f2f2;
+				margin: 80px auto;
+				position: relative;
+				box-shadow: 10px 40px 55px #e8e5e5;
+		}
+		#header{
+			    background: #191818;
+				height: 50px;
+				color: #fff;
+				border-radius: 2px;
+				line-height: 50px;
+				text-align: center;
+				font-size: 12px;
+		}
+		#footer{
+				text-align:center;
+				position: absolute;
+				bottom: 0;
+				background: #1f1e1e;
+				width: 450px;
+				height: 50px;
+				border-radius: 2px;
+		}
+		
+		#footer input{
+				padding-left: 6px;
+				float:left;
+				width: 360px;
+				height: 30px;
+				border-radius: 6px;
+				margin: 8px 10px;
+				border: 0px;
+		}
+		#sendButton{
+				font-weight: 800;
+				font-size: 10px;
+				background: #0e8007;
+				width: 45px;
+				height: 30px;
+				float: left;
+				line-height: 30px;
+				margin: 8px;
+				border-radius: 4px;
+				cursor: pointer;
+		}
+		#content{
+				overflow: auto;
+				height:600px;
+				width:450px;
+				margin:0;
+				padding:5px;
+				list-style: none;
+		}
+		#content li{
+			list-style-type:none;
+			clear: both;
+			overflow: hidden;
+		
+		}
+		.msg{
+			padding: 10px;
+			max-width: 300px;
+			height: 30px;
+			background: #7cbb55;
+			float: right;
+			margin-right: 10px;
+			border-radius: 6px;
+			line-height: 30px;
+			text-align: center;
+		}
+	</style>
+</head>
+	<body>
+		<div id="container">
+			<div id="header">
+				安琪拉小姐姐
+			</div>
+			
+			<ul id="content">
+				<li>
+					<div class="msg">
+						fdsfsdfdsfdsfds
+					</div>
+				</li>
+			</ul>
+			
+			<div id="footer">
+				<div id="sendBox">
+					<input id="sendVal">
+				</div>
+				<div id="sendButton">发送</div>
+			</div>
+			
+		</div>
+	</body>
+<script src="/jquery.js"></script>
+<script src="/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+<script>
+	var sendToname ="";//發送給誰
+    var info = "";//自己是誰
+    $(function() {
+        sendToname = parent.$("#sendUsername").val();
+        $("#sendButton").click(function () {
+            var chatMsg = $("#sendVal").val();
+            $.ajax({
+                url: "/chat",//发送在线人数给所有客户端
+                type: "post",
+				data:'message='+chatMsg+'&username='+sendToname,
+                dataType: "json",
+                success: function (data) {
+                    //info = data.info;
+                }
+            });
+        });
+
+
+
+
+        var socket = new SockJS('/luban');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log(sendToname+"pppppppppppppppppppppppp")
+            //訂閲  聊天的消息，發給我
+            stompClient.subscribe('/user/' +info+"/luban", function (data) {
+                console.log(data);
+            });
+
+        });
+
+    })
+
+</script>
+</html>

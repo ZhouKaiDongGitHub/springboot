@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+   <!-- <context:component-scan base-package="com.luban.kzhou"/>-->
+
+    <!--<bean id="indexDao" class="com.luban.kzhou.IndexDaoImpl1"></bean>-->
+
+    <!--<bean id="indexService" class="com.luban.kzhou.IndexService">-->
+        <!--<property name="indexDao" ref="indexDao"></property>-->
+    <!--</bean>-->
+
+    <!--<bean id="indexService" class="com.luban.kzhou.IndexService">-->
+        <!--<constructor-arg ref="indexDao"/>-->
+    <!--</bean>-->
+
+    <bean id="aspectPrograme" class="com.luban.kzhou.aspect.AspectPrograme"></bean>
+    <bean id="pointCut11" class="com.luban.kzhou.aspect.PointCut"></bean>
+    <bean id = "pointCut22" class="com.luban.kzhou.aspect.PointCut2"></bean>
+    <bean id="pointCut33" class="com.luban.kzhou.aspect.PointCut3"></bean>
+    <aop:config>
+        <aop:pointcut id="targertPointCut" expression="execution(* com.luban.kzhou.aspect.PointCut.save(*))"></aop:pointcut>
+        <aop:pointcut id="targertPointCut2" expression="execution(* com.luban.kzhou.aspect.PointCut2.save(*))"></aop:pointcut>
+        <aop:pointcut id="targerPointCut3" expression="execution(* com.luban.kzhou.aspect.PointCut3.save(..))"></aop:pointcut>
+        <aop:aspect ref="aspectPrograme">
+            <aop:before method="doBefore" pointcut-ref="targertPointCut"/>
+        </aop:aspect>
+        <aop:aspect ref="aspectPrograme">
+            <aop:after-returning method="doAfter" pointcut-ref="targertPointCut2" returning="ret"/>
+        </aop:aspect>
+        <aop:aspect ref="aspectPrograme">
+            <aop:around method="doAround" pointcut-ref="targerPointCut3"></aop:around>
+        </aop:aspect>
+    </aop:config>
+</beans>
