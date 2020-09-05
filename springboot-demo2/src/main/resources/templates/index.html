@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>告白气球</title>
+		<style type="text/css">
+			body,
+			html {
+				width: 100%;
+				height: 100%;
+				background: black;
+			}
+			
+			div {
+				position: absolute;
+				border-radius: 50%;
+			}
+			
+			#txt{
+				position: relative;
+				width: 400px;
+				height: 100px;
+				margin: 260px 420px;
+				font-size: 50px;
+				font-family: 楷体;
+				z-index: 1000;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="txt">
+			<p>老婆，我爱你！50000年</p>
+		</div>
+		<audio src="mp3/周笔畅-最美的期待.mp3" autoplay="autoplay"></audio>
+		<!--因为我们要定义多个气球，并且颜色要不一样，气球的尺寸也不一样-->
+		<!--<div></div>-->
+		<script type="text/javascript" src="js/Balloon.js"></script>
+		<script type="text/javascript">
+			var n = 0;
+			var t = setInterval(function(){
+				//照片
+				var b = new Balloon("url(img/a"+n+".jpg)");
+				//绘制气球
+				b.drawBalloon(document.body);
+				//让气球动起来
+				b.run();
+				n++;
+				if(n>5){
+					clearInterval(t);
+				}
+			},5000);
+			
+			//气球
+			for(var i = 0; i < 30; i++) {
+				//创建一个气球对象
+				var b = new Balloon();
+				//绘制气球
+				b.drawBalloon(document.body);
+				//让气球动起来
+				b.run();
+			}
+		</script>
+	</body>
+
+</html>

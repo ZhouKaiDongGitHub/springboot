@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>springboot-parent</artifactId>
+        <groupId>com.kzhou.springboot</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.kzhou.springboot</groupId>
+    <artifactId>springboot-demo1</artifactId>
+
+    <!--springboot可以没有总管理的springboot-parent,但是这样可能对下面的组件版本赵成不一致的影响-->
+
+    <dependencies>
+        <!--springboot的核心jar,解决自动配置和yaml文件解析等等-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>2.1.8.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.1.8.RELEASE</version>
+        </dependency>
+        <!--spring底下集成了很对组件如：-->
+        <!--spring-boot-starter-web-->
+        <!--spring-boot-starter-activemq-->
+        <!--spring-boot-starter-aop-->
+        <!--spring-boot-starter-cache-->
+        <!--spring-boot-starter-data-elasticsearch-->
+        <!--spring-boot-starter-data-jdbc-->
+        <!--spring-boot-starter-data-redis-->
+        <!--spring-boot-starter-data-solr-->
+        <!--spring-boot-starter-data-mongdb-->
+        <!--spring-boot-starter-data-json-->
+        <!--等等-->
+    </dependencies>
+
+    <!--用来打包springboot的jar包的，不一定是一个web工程，可能只是一个简单的jar-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

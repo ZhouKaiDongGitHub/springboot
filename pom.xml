@@ -16,6 +16,7 @@
         <module>spring-aop</module>
         <module>spring-jdbc</module>
         <module>spring-ioc</module>
+        <module>springboot-demo1</module>
     </modules>
 
 
