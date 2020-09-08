@@ -20,7 +20,7 @@ public class AppConfig {
         return resolver;
     }
 
-    @Bean
+    @Bean("multipartResolver")
     public MultipartResolver multipartResolver(){
         MultipartResolver multipartResolver = new CommonsMultipartResolver();
         return multipartResolver;

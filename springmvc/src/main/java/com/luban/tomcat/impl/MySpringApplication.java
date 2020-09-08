@@ -17,9 +17,10 @@ public class MySpringApplication {
 
         tomcat.setPort(9080);
 
+
         String sourcePath = MySpringApplication.class.getResource("/").getPath();
 
-        //告訴tomcat你的资源文件在哪裏
+        //以前的tomcat需要知道WEB-INF的路径，这个是一个War包发布之后的路径
         Context ctx = tomcat.addWebapp("/",new File("src/main/webapp").getAbsolutePath());
         WebResourceRoot resources = new StandardRoot(ctx);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",

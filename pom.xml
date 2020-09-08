@@ -17,6 +17,7 @@
         <module>spring-jdbc</module>
         <module>spring-ioc</module>
         <module>springboot-demo1</module>
+        <module>springmvc2</module>
     </modules>
 
 
