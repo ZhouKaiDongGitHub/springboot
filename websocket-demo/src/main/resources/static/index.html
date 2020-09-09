@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <script src="/webjars/jquery/3.1.0/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+    <script src="https://echarts.apache.org/examples/vendors/echarts/echarts.min.js?_v_=1539619299314"></script>
+</head>
+
+<body>
+<div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 40]
+        }]
+    };
+
+    myChart.setOption(option);
+
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/luban');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/echarts', function (data) {
+                console.log(data.body);
+                option.series[0].data[5]=data.body;
+                myChart.setOption(option);
+            });
+        });
+    }
+
+    function sendName() {
+        stompClient.send("/app/hello", {}, JSON.stringify({'name': "dawei"}));
+    }
+
+    connect();
+</script>
+
+<a href ="javascript:sendName()">afdsfds;lfk;</a>
+</body>
+</html>
